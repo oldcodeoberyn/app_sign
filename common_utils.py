@@ -7,12 +7,11 @@ from PIL import Image, ImageEnhance, ImageFilter
 
 import logging
 from logging.config import fileConfig
-import os
 import platform
-cwd=os.getcwd()
+import os
 
 
-fileConfig(cwd+'/logging.ini')
+fileConfig(os.path.dirname(os.path.realpath(__file__)) + '/logging.ini')
 logger = logging.getLogger()
 
 CHROME_PATH = '/Users/caishichao/Applications/webdriver/chromedriver'
