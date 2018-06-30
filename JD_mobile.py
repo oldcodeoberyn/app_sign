@@ -12,10 +12,10 @@ import sys
 def checkLogin(driver):
     try:
         driver.find_element_by_class_name("nickname")
-        logger.debug("登陆成功")
+        print("登陆成功")
         return True
     except Exception:
-        logger.debug("尚未登陆成功")
+        print("尚未登陆成功")
         # driver.find_element_by_class_name("nickname")
         return False
 
@@ -30,41 +30,41 @@ def login(userName, password):
         try:
             driver.get(url)
             time.sleep(2)
-            logger.debug("账户登录...")
+            print("账户登录...")
             driver.find_element_by_id("username").send_keys(userName)
             driver.find_element_by_id("password").send_keys(password)
             driver.find_element_by_id("loginBtn").click()
-            logger.debug("提交密码...")
+            print("提交密码...")
             time.sleep(5)
             not_connect = True
         except Exception:
-            logger.debug("无法访问JD")
+            print("无法访问JD")
 
     driver.get("https://vip.m.jd.com/")
 
     driver.get("https://s.m.jd.com/activemcenter/activemsite/m_welfare?ptag=138026.5.1&sceneval=2&logintag=#/main")
     time.sleep(3)
     driver.find_element_by_class_name("day_able").click()
-    logger.debug("签到，并领取京豆")
+    print("签到，并领取京豆")
     time.sleep(2)
-    logger.debug("抽奖")
+    print("抽奖")
     driver.find_element_by_class_name("lottery_btn").click()
     time.sleep(2)
     tasks = driver.find_elements_by_class_name("welfareTask_btn")
 
-    logger.debug("领取任务")
+    print("领取任务")
     for task in tasks:
         task.click()
         time.sleep(2)
         driver.get("https://s.m.jd.com/activemcenter/activemsite/m_welfare?ptag=138026.5.1&sceneval=2&logintag=#/main")
         time.sleep(2)
 
-    logger.debug("领取京豆")
+    print("领取京豆")
     for task in tasks:
         task.click()
         time.sleep(2)
 
-    logger.debug("早起签到")
+    print("早起签到")
     driver.get("https://m.jr.jd.com/integrate/getUp/html/index.html")
     time.sleep(2)
     driver.get("https://m.jr.jd.com/vip/sign/html/index.html")

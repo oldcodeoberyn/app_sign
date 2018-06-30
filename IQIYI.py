@@ -8,12 +8,12 @@ from common_utils import *
 def checkLogin(driver):
     try:
         if (len(driver.find_elements_by_class_name("qyrv2")) == 2):
-            logger.debug("登陆成功")
+            print("登陆成功")
             return True
         else:
             return False
     except Exception:
-        logger.debug("尚未登陆成功")
+        print("尚未登陆成功")
         # driver.find_element_by_class_name("nickname")
         return False
 
@@ -33,48 +33,48 @@ def login(user, pwd):
             # driver.switch_to_active_element()
             driver.find_element_by_link_text("账号密码登录").click()
             time.sleep(3)
-            logger.debug("账户登录...")
+            print("账户登录...")
             driver.find_element_by_class_name("txt-account").send_keys(user)
             driver.find_element_by_class_name("txt-password").send_keys(pwd)
             driver.find_element_by_class_name("btn-login").click()
-            logger.debug("提交密码...")
+            print("提交密码...")
             time.sleep(5)
             not_connect = True
         except Exception as e:
-            logger.debug(e.message)
-            logger.debug("无法访问IQIY")
+            print(e.message)
+            print("无法访问IQIY")
     count = 0
     while checkLogin(driver) == False:
         try:
             count += 1
             if count > 15:
                 break
-            logger.debug("第{}次验证".format(count))
+            print("第{}次验证".format(count))
             driver.get(url)
             time.sleep(3)
             driver.find_element_by_link_text("账号密码登录").click()
             time.sleep(3)
-            logger.debug("账户登录...")
+            print("账户登录...")
             driver.find_element_by_class_name("txt-account").send_keys(user)
             driver.find_element_by_class_name("txt-password").send_keys(pwd)
             driver.find_element_by_class_name("btn-login").click()
-            logger.debug("提交密码...")
+            print("提交密码...")
             time.sleep(10)
         except Exception:
-            logger.debug("无法登陆，重试")
+            print("无法登陆，重试")
 
-    logger.debug("签到")
+    print("签到")
     try:
         driver.get("http://www.iqiyi.com/u/record")
         time.sleep(2)
         driver.find_element_by_class_name("vt-goldBtn").click()
         time.sleep(2)
         if driver.find_element_by_class_name("vt-grayBtn").text.find("已签到"):
-            logger.debug("签到成功")
+            print("签到成功")
     except Exception:
-        logger.debug("签到失败")
+        print("签到失败")
 
-    logger.debug("抽奖")
+    print("抽奖")
     try:
         driver.get("http://vip.iqiyi.com/pcwlottery.html")
         time.sleep(2)
@@ -86,9 +86,9 @@ def login(user, pwd):
         driver.find_element_by_link_text("知道啦").click()
         time.sleep(2)
     except Exception:
-        logger.debug("抽奖失败")
+        print("抽奖失败")
 
-    logger.debug("任务")
+    print("任务")
     driver.get('http://www.iqiyi.com/u/point')
     time.sleep(3)
     driver.find_element_by_link_text("签到").click()
@@ -104,7 +104,7 @@ def login(user, pwd):
     # Hover.perform()
 
     time.sleep(20)
-    logger.debug("退出")
+    print("退出")
 
 
 if __name__ == '__main__':
