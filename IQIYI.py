@@ -49,7 +49,7 @@ def login(user, pwd):
             count += 1
             if count > 15:
                 break
-            logger.debug("第", count, "次验证")
+            logger.debug("第{}次验证".format(count))
             driver.get(url)
             time.sleep(3)
             driver.find_element_by_link_text("账号密码登录").click()

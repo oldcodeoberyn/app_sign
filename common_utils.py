@@ -7,8 +7,12 @@ from PIL import Image, ImageEnhance, ImageFilter
 
 import logging
 from logging.config import fileConfig
+import os
+import platform
+cwd=os.getcwd()
 
-fileConfig('logging.ini')
+
+fileConfig(cwd+'/logging.ini')
 logger = logging.getLogger()
 
 CHROME_PATH = '/Users/caishichao/Applications/webdriver/chromedriver'
@@ -29,7 +33,10 @@ def create_chrome( disableImage = True, mobile=False ):
     options.add_argument('disable-images')
     options.add_argument('headless')
     options.add_argument('disable-gpu')
-    driver = Chrome(executable_path=CHROME_PATH, chrome_options=options)
+    if platform.system() == 'Darwin':
+        driver = Chrome(executable_path=CHROME_PATH, chrome_options=options)
+    else:
+        driver = Chrome(chrome_options=options)
     return driver
 
 

@@ -50,7 +50,7 @@ def login(userName, password):
             count += 1
             if count > 15:
                 break
-            logger.debug("第", count, "次验证")
+            logger.debug("第{}次验证".format(count))
 
             # 如果需要通过截屏的方法处理验证码，则需要获取整个html的大小，然后将screenshot图片resize为html的大小
             # html = driver.find_element_by_tag_name('html')
