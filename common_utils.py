@@ -5,6 +5,11 @@ from piltesseract import get_text_from_image
 from aip import AipOcr
 from PIL import Image, ImageEnhance, ImageFilter
 
+import logging
+from logging.config import fileConfig
+
+fileConfig('logging.ini')
+logger = logging.getLogger()
 
 CHROME_PATH = '/Users/caishichao/Applications/webdriver/chromedriver'
 SWITCHER_PATH = 'User-Agent-Switcher.crx'
