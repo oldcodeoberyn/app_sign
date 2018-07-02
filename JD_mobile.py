@@ -42,9 +42,14 @@ def login(userName, password):
                 logger.debug("无法访问JD")
 
         driver.get("https://vip.m.jd.com/")
+        time.sleep(2)
+        driver.find_element_by_class_name("sign-pop").click()
+        time.sleep(2)
 
         driver.get("https://s.m.jd.com/activemcenter/activemsite/m_welfare?ptag=138026.5.1&sceneval=2&logintag=#/main")
         time.sleep(3)
+        driver.find_element_by_id("pcprompt-viewpc").click()
+        time.sleep(2)
         driver.find_element_by_class_name("day_able").click()
         logger.debug("签到，并领取京豆")
         time.sleep(2)
@@ -65,20 +70,22 @@ def login(userName, password):
             task.click()
             time.sleep(2)
 
-        logger.debug("早起签到")
-        driver.get("https://m.jr.jd.com/integrate/getUp/html/index.html")
-        time.sleep(2)
         driver.get("https://m.jr.jd.com/vip/sign/html/index.html")
         time.sleep(2)
         driver.find_element_by_class_name("sign-btn").click()
         time.sleep(2)
-        driver.get("https://coin.jd.com/m/gb/index.html")
 
+        logger.debug("早起签到")
+        driver.get("https://m.jr.jd.com/integrate/getUp/html/index.html")
+        time.sleep(2)
+        driver.find_element_by_class_name("clockBtn").click()
+        time.sleep(2)
+        driver.find_element_by_class_name("mt58").click()
 
         time.sleep(100)
         driver.close()
-    except Exception:
-        logger.debug("出错退出")
+    except Exception as e:
+        logger.exception("出错退出")
         driver.close()
 
 
