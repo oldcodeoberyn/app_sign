@@ -38,38 +38,38 @@ def login(userName, password):
             except Exception:
                 logger.exception("无法访问JD")
 
-
         driver.get("https://sale.jd.com/m/act/8Ak3ilHTvYR7.html")
         time.sleep(2)
 
         date = datetime.datetime.now().strftime("%Y-%m-%d")
         buy_time_str = date + ' 11:59:59'
-        buytime_12 = time.mktime(time.strptime(buy_time_str,"%Y-%m-%d %H:%M:%S"))
+        buytime_12 = time.mktime(time.strptime(buy_time_str, "%Y-%m-%d %H:%M:%S"))
 
         buy_time_str = date + ' 13:59:59'
-        buytime_14 = time.mktime(time.strptime(buy_time_str,"%Y-%m-%d %H:%M:%S"))
+        buytime_14 = time.mktime(time.strptime(buy_time_str, "%Y-%m-%d %H:%M:%S"))
 
         buy_time_str = date + ' 17:59:59'
-        buytime_18 = time.mktime(time.strptime(buy_time_str,"%Y-%m-%d %H:%M:%S"))
+        buytime_18 = time.mktime(time.strptime(buy_time_str, "%Y-%m-%d %H:%M:%S"))
 
         buy_time_str = date + ' 19:59:59'
-        buytime_20 = time.mktime(time.strptime(buy_time_str,"%Y-%m-%d %H:%M:%S"))
+        buytime_20 = time.mktime(time.strptime(buy_time_str, "%Y-%m-%d %H:%M:%S"))
 
         if time.time() < buytime_12:
             buytime = buytime_12
-        elif  time.time() < buytime_14:
+        elif time.time() < buytime_14:
             buytime = buytime_14
-        elif  time.time() < buytime_18:
+        elif time.time() < buytime_18:
             buytime = buytime_18
         else:
             buytime = buytime_20
 
-        logger.debug( "准备抢购" )
-        while(time.time() < buytime):
+        logger.debug("准备抢购")
+        while time.time() < buytime + 0.9:
             time.sleep(0.01)
         driver.get("https://sale.jd.com/m/act/8Ak3ilHTvYR7.html")
-        time.sleep(0.5)
+        time.sleep(0.3)
         try:
+            logger.debug("按按钮")
             driver.find_elements_by_class_name("coup-img")[0].click()
         except Exception:
             logger.exception("按钮没找到")
@@ -77,6 +77,7 @@ def login(userName, password):
         driver.get("https://sale.jd.com/m/act/8Ak3ilHTvYR7.html")
         time.sleep(0.2)
         try:
+            logger.debug("按按钮")
             driver.find_elements_by_class_name("coup-img")[0].click()
         except Exception:
             logger.exception("按钮没找到")
@@ -88,5 +89,3 @@ def login(userName, password):
 
 if __name__ == '__main__':
     login(sys.argv[1], sys.argv[2])
-
-

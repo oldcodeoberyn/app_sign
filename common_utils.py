@@ -28,6 +28,7 @@ def create_chrome(disableImage=True, mobile=False):
     options.add_argument('no-sandbox')
     if mobile:
         options.add_extension(SWITCHER_PATH)
+    options.add_argument('user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1"')
     options.add_argument('disable-images')
     options.add_argument('headless')
     options.add_argument('disable-gpu')
@@ -91,15 +92,20 @@ def extract_text_by_google(imagePath):
 
 def find_element_by_id(driver, id):
     try:
+        logger.debug(id + '----------')
         driver.find_element_by_id(id).click()
+        logger.debug(id + '++++++++++')
         return True
     except Exception:
         logger.exception(id + " not exits")
+        return False
 
 
 def find_element_by_class_name(driver, name):
     try:
+        logger.debug(name + '----------')
         driver.find_element_by_class_name(name).click()
+        logger.debug(name + '++++++++++')
         return True
     except Exception:
         logger.exception(name + " not exits")
@@ -108,7 +114,9 @@ def find_element_by_class_name(driver, name):
 
 def find_element_by_link_text(driver, text):
     try:
+        logger.debug(text + '----------')
         driver.find_element_by_link_text(text).click()
+        logger.debug(text + '++++++++++')
         return True
     except Exception:
         logger.exception(text + " not exits")
@@ -117,7 +125,9 @@ def find_element_by_link_text(driver, text):
 
 def find_element_by_tag_name(driver, name):
     try:
+        logger.debug(name + '----------')
         driver.find_element_by_tag_name(name).click()
+        logger.debug(name + '++++++++++')
         return True
     except Exception:
         logger.exception(name + " not exits")
@@ -126,7 +136,9 @@ def find_element_by_tag_name(driver, name):
 
 def find_elements_by_css_selector(driver, css):
     try:
+        logger.debug(css + '----------')
         driver.find_element_by_id(css).click()
+        logger.debug(css + '++++++++++')
         return True
     except Exception:
         logger.exception(css + " not exits")

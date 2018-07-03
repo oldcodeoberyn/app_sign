@@ -2,7 +2,7 @@
 import time
 from common_utils import *
 import sys
-
+import datetime
 
 def checkLogin(driver):
     try:
@@ -39,26 +39,26 @@ def login(userName, password):
         driver.get("https://p.m.jd.com/cart/cart.action")
         logger.debug("访问购物车")
         time.sleep(3)
-        find_element_by_id(driver,"pcprompt-viewpc")
+        find_element_by_id(driver, "pcprompt-viewpc")
         time.sleep(3)
         if len(driver.find_elements_by_class_name("selected")) == 0:
-            find_element_by_class_name(driver,"icon_select")
+            find_element_by_class_name(driver, "icon_select")
             time.sleep(1)
         logger.debug("全选")
+        time.sleep(1)
 
+        date = datetime.datetime.now().strftime("%Y-%m-%d")
+        buy_time_str = date + ' 20:00:00'
 
-
-        buy_time_str = '2018-07-02 20:00:00'
-        buytime = time.mktime(time.strptime(buy_time_str,"%Y-%m-%d %H:%M:%S"))
-        logger.debug( buytime )
-        while(time.time() < buytime):
+        buytime = time.mktime(time.strptime(buy_time_str, "%Y-%m-%d %H:%M:%S"))
+        logger.debug(buytime)
+        while (time.time() < buytime):
             time.sleep(0.01)
-        driver.find_element_by_class_name("buyJs").click()
-        logger.debug("下单")
-        time.sleep(0.5)
-        driver.find_element_by_id( driver, "pcprompt-viewpc")
-        time.sleep(0.5)
-        driver.find_element_by_link_text("在线支付").click()
+        find_element_by_class_name(driver, "buyJs")
+        time.sleep(0.25)
+        if find_element_by_id(driver, "pcprompt-viewpc"):
+            time.sleep(0.1)
+        find_element_by_link_text(driver, "在线支付")
         time.sleep(15)
     except Exception as e:
         logger.exception("出错退出")
@@ -67,5 +67,3 @@ def login(userName, password):
 
 if __name__ == '__main__':
     login(sys.argv[1], sys.argv[2])
-
-
