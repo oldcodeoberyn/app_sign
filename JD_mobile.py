@@ -3,6 +3,7 @@ import time
 from common_utils import *
 import sys
 
+
 # todo 京东金融 每日签到，早起活动，双签
 # 翻牌 https://active.jd.com/forever/stockSign/html/index.html
 # 钢镚 https://coin.jd.com/m/gb/index.html
@@ -19,9 +20,10 @@ def checkLogin(driver):
         # driver.find_element_by_class_name("nickname")
         return False
 
+
 def login(userName, password):
     try:
-        driver = create_chrome( disableImage=False, mobile=False)
+        driver = create_chrome(disableImage=False, mobile=False)
         # TODO, 有时登陆会跳转到linkstar.com，导致异常退出
         url = "https://home.m.jd.com/myJd/home.action"
         authcode_img = 'out.png'
@@ -43,18 +45,26 @@ def login(userName, password):
 
         driver.get("https://vip.m.jd.com/")
         time.sleep(2)
-        driver.find_element_by_class_name("sign-pop").click()
+        find_element_by_class_name(driver, "sign-pop")
         time.sleep(2)
 
         driver.get("https://s.m.jd.com/activemcenter/activemsite/m_welfare?ptag=138026.5.1&sceneval=2&logintag=#/main")
         time.sleep(3)
-        driver.find_element_by_id("pcprompt-viewpc").click()
+        find_element_by_id(driver, "pcprompt-viewpc")
         time.sleep(2)
-        driver.find_element_by_class_name("day_able").click()
+        find_element_by_class_name(driver, "day_able")
         logger.debug("签到，并领取京豆")
         time.sleep(2)
+        driver.get("https://s.m.jd.com/activemcenter/activemsite/m_welfare?ptag=138026.5.1&sceneval=2&logintag=#/main")
+        time.sleep(3)
+        find_element_by_id(driver, "pcprompt-viewpc")
+        time.sleep(2)
         logger.debug("抽奖")
-        driver.find_element_by_class_name("lottery_btn").click()
+        find_element_by_class_name(driver, "lottery_btn")
+        time.sleep(2)
+        driver.get("https://s.m.jd.com/activemcenter/activemsite/m_welfare?ptag=138026.5.1&sceneval=2&logintag=#/main")
+        time.sleep(3)
+        find_element_by_id(driver, "pcprompt-viewpc")
         time.sleep(2)
         tasks = driver.find_elements_by_class_name("welfareTask_btn")
 
@@ -62,7 +72,8 @@ def login(userName, password):
         for task in tasks:
             task.click()
             time.sleep(2)
-            driver.get("https://s.m.jd.com/activemcenter/activemsite/m_welfare?ptag=138026.5.1&sceneval=2&logintag=#/main")
+            driver.get(
+                "https://s.m.jd.com/activemcenter/activemsite/m_welfare?ptag=138026.5.1&sceneval=2&logintag=#/main")
             time.sleep(2)
 
         logger.debug("领取京豆")
@@ -72,15 +83,15 @@ def login(userName, password):
 
         driver.get("https://m.jr.jd.com/vip/sign/html/index.html")
         time.sleep(2)
-        driver.find_element_by_class_name("sign-btn").click()
+        find_element_by_class_name(driver, "sign-btn")
         time.sleep(2)
 
         logger.debug("早起签到")
         driver.get("https://m.jr.jd.com/integrate/getUp/html/index.html")
         time.sleep(2)
-        driver.find_element_by_class_name("clockBtn").click()
+        find_element_by_class_name(driver, "clockBtn")
         time.sleep(2)
-        driver.find_element_by_class_name("mt58").click()
+        find_element_by_class_name(driver, "mt58")
 
         time.sleep(100)
         driver.close()

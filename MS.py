@@ -37,28 +37,26 @@ def login(userName, password):
             except Exception:
                 logger.exception("无法访问JD")
         driver.get("https://p.m.jd.com/cart/cart.action")
-        print("访问购物车")
+        logger.debug("访问购物车")
         time.sleep(3)
-        driver.find_element_by_id("pcprompt-viewpc").click()
-        print("直接操作")
+        find_element_by_id(driver,"pcprompt-viewpc")
         time.sleep(3)
         if len(driver.find_elements_by_class_name("selected")) == 0:
-            driver.find_element_by_class_name("icon_select").click()
+            find_element_by_class_name(driver,"icon_select")
             time.sleep(1)
-        print("全选")
+        logger.debug("全选")
 
 
 
         buy_time_str = '2018-07-02 20:00:00'
         buytime = time.mktime(time.strptime(buy_time_str,"%Y-%m-%d %H:%M:%S"))
-        print( buytime )
+        logger.debug( buytime )
         while(time.time() < buytime):
             time.sleep(0.01)
         driver.find_element_by_class_name("buyJs").click()
-        print("下单")
+        logger.debug("下单")
         time.sleep(0.5)
-        driver.find_element_by_id("pcprompt-viewpc").click()
-        print("直接操作")
+        driver.find_element_by_id( driver, "pcprompt-viewpc")
         time.sleep(0.5)
         driver.find_element_by_link_text("在线支付").click()
         time.sleep(15)

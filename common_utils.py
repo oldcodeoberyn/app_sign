@@ -10,7 +10,6 @@ from logging.config import fileConfig
 import platform
 import os
 
-
 fileConfig(os.path.dirname(os.path.realpath(__file__)) + '/logging.ini')
 logger = logging.getLogger()
 
@@ -19,7 +18,7 @@ SWITCHER_PATH = 'User-Agent-Switcher.crx'
 PHANTOMJS_PATH = '/Users/caishichao/Applications/phantomjs-2.1.1-macosx/bin/phantomjs'
 
 
-def create_chrome( disableImage = True, mobile=False ):
+def create_chrome(disableImage=True, mobile=False):
     options = ChromeOptions()
     chrome_prefs = {}
     if disableImage:
@@ -42,10 +41,14 @@ def create_chrome( disableImage = True, mobile=False ):
 def create_PhantomJS():
     return PhantomJS(executable_path=PHANTOMJS_PATH)
 
+
 """ 读取图片 """
+
+
 def get_file_content(filePath):
     with open(filePath, 'rb') as fp:
         return fp.read()
+
 
 def enhancer_img(img):
     enhancer = ImageEnhance.Contrast(img)  # 加强效果
@@ -84,3 +87,47 @@ def extract_text_by_baidu(imagePath):
 def extract_text_by_google(imagePath):
     with Image.open(imagePath) as img:
         return get_text_from_image(img, tessedit_char_whitelist=digits)
+
+
+def find_element_by_id(driver, id):
+    try:
+        driver.find_element_by_id(id).click()
+        return True
+    except Exception:
+        logger.exception(id + " not exits")
+
+
+def find_element_by_class_name(driver, name):
+    try:
+        driver.find_element_by_class_name(name).click()
+        return True
+    except Exception:
+        logger.exception(name + " not exits")
+        return False
+
+
+def find_element_by_link_text(driver, text):
+    try:
+        driver.find_element_by_link_text(text).click()
+        return True
+    except Exception:
+        logger.exception(text + " not exits")
+        return False
+
+
+def find_element_by_tag_name(driver, name):
+    try:
+        driver.find_element_by_tag_name(name).click()
+        return True
+    except Exception:
+        logger.exception(name + " not exits")
+        return False
+
+
+def find_elements_by_css_selector(driver, css):
+    try:
+        driver.find_element_by_id(css).click()
+        return True
+    except Exception:
+        logger.exception(css + " not exits")
+        return False
