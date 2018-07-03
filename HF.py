@@ -39,17 +39,20 @@ def login(userName, password):
                 logger.exception("无法访问JD")
 
 
+        driver.get("https://sale.jd.com/m/act/8Ak3ilHTvYR7.html")
+        time.sleep(2)
+
         date = datetime.datetime.now().strftime("%Y-%m-%d")
-        buy_time_str = date + ' 11:59:58'
+        buy_time_str = date + ' 11:59:59'
         buytime_12 = time.mktime(time.strptime(buy_time_str,"%Y-%m-%d %H:%M:%S"))
 
-        buy_time_str = date + ' 13:59:58'
+        buy_time_str = date + ' 13:59:59'
         buytime_14 = time.mktime(time.strptime(buy_time_str,"%Y-%m-%d %H:%M:%S"))
 
-        buy_time_str = date + ' 17:59:58'
+        buy_time_str = date + ' 17:59:59'
         buytime_18 = time.mktime(time.strptime(buy_time_str,"%Y-%m-%d %H:%M:%S"))
 
-        buy_time_str = date + ' 19:59:58'
+        buy_time_str = date + ' 19:59:59'
         buytime_20 = time.mktime(time.strptime(buy_time_str,"%Y-%m-%d %H:%M:%S"))
 
         if time.time() < buytime_12:
@@ -61,7 +64,7 @@ def login(userName, password):
         else:
             buytime = buytime_20
 
-        logger.debug( datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "准备抢购" )
+        logger.debug( "准备抢购" )
         while(time.time() < buytime):
             time.sleep(0.01)
         driver.get("https://sale.jd.com/m/act/8Ak3ilHTvYR7.html")
@@ -70,9 +73,9 @@ def login(userName, password):
             driver.find_elements_by_class_name("coup-img")[0].click()
         except Exception:
             logger.exception("按钮没找到")
+        logger.debug("再抢")
         driver.get("https://sale.jd.com/m/act/8Ak3ilHTvYR7.html")
         time.sleep(0.2)
-        driver.find_elements_by_class_name("coup-img")[0].click()
         try:
             driver.find_elements_by_class_name("coup-img")[0].click()
         except Exception:
