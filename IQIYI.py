@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import time
 import sys
+import re
 
 from common_utils import *
 
@@ -80,25 +81,30 @@ def login(user, pwd):
             driver.get("http://vip.iqiyi.com/pcwlottery.html")
             time.sleep(2)
 
-            driver.find_element_by_class_name("jackpot-prize-btn").find_element_by_tag_name("a").click()
-            time.sleep(2)
-            driver.switch_to_alert()
-            # driver.find_element_by_class_name("btn-lt").click()
-            driver.find_element_by_link_text("知道啦").click()
-            time.sleep(2)
+            l_times_str = driver.find_element_by_class_name("head-lt").text
+            logger.debug(l_times_str)
+            s = re.search('\d', l_times_str)
+            l_times = 0
+            if s:
+                l_times = int(s.group())
+            for i in range(l_times):
+                driver.find_element_by_class_name("jackpot-prize-btn").find_element_by_tag_name("a").click()
+                time.sleep(5)
+                driver.get("http://vip.iqiyi.com/pcwlottery.html")
+                time.sleep(2)
         except Exception:
-            logger.debug("抽奖失败")
-
+            logger.Exception("抽奖失败")
+        time.sleep(3)
         logger.debug("任务")
         driver.get('http://www.iqiyi.com/u/point')
         time.sleep(3)
-        driver.find_element_by_link_text("签到").click()
+        find_element_by_link_text(driver,"签到")
         time.sleep(2)
-        driver.find_element_by_link_text("去逛逛").click()
+        find_element_by_link_text(driver,"去逛逛")
         time.sleep(2)
         driver.get('http://www.iqiyi.com/u/point')
         time.sleep(3)
-        driver.find_element_by_link_text("去领取").click()
+        find_element_by_link_text(driver,"去领取")
         # 可通过 ActionChains move_to_element perform 触发 mouseon 事件
         # task_list = driver.find_element_by_class_name("qy-scroll-integral")
         # Hover = ActionChains(driver).move_to_element(task_list)
@@ -108,7 +114,7 @@ def login(user, pwd):
         logger.debug("退出")
         driver.close()
     except Exception:
-        logger.debug("出错退出")
+        logger.exception("出错退出")
         driver.close()
 
 if __name__ == '__main__':
