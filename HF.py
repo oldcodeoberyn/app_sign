@@ -76,6 +76,7 @@ def login(userName, password):
                    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
                    "cookie":cookie
                    }
+        logger.debug(headers)
         while time.time() < buytime + 0.8:
             time.sleep(0.1)
         while time.time() > buytime + 0.8 and time.time() < buytime:
