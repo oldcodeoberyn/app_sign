@@ -28,7 +28,8 @@ def create_chrome(disableImage=True, mobile=False):
     options.add_argument('no-sandbox')
     if mobile:
         options.add_extension(SWITCHER_PATH)
-    options.add_argument('user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1"')
+        options.add_argument('user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1"')
+    options.add_argument('user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"')
     options.add_argument('disable-images')
     options.add_argument('headless')
     options.add_argument('disable-gpu')
