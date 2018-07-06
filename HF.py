@@ -63,7 +63,7 @@ def login(userName, password):
 
         if time.time() < buytime_10:
             buytime = buytime_10
-        if time.time() < buytime_12:
+        elif time.time() < buytime_12:
             buytime = buytime_12
         elif time.time() < buytime_14:
             buytime = buytime_14
@@ -79,16 +79,17 @@ def login(userName, password):
                    "cookie":cookie
                    }
         logger.debug(headers)
+
         while time.time() < buytime + 0.8:
             time.sleep(0.1)
         while time.time() > buytime + 0.8 and time.time() < buytime + 0.992:
             time.sleep(0.025)
             resp = requests.get(
-                "http://act-jshop.jd.com/couponSend.html?ruleId=12816307&key=9e2c507aa97c43f9a9dad267bbd4bb40&sid=df194dd9015d61b069c80548c75a8527&eid=63MC7EDDUH3243MORQ6DB7M4DE5MRVJBHY45TJTOLUBLHKPV7ZM5K7NODMX23BJDXO5D3PO4WJDNP3CLSH23KQ4LHY&fp=a5cfd575a431a5c829b88a9062947ac4&shshshfp=a5b45026da1ec74832d172380fe4983e&shshshfpa=aa869845-629a-d170-0163-904170f09f1d-1530679125&shshshfpb=0dc613037052c5423615861c74482464d9908091518dc06c55b3446a37&jda=122270672.15301079406641749654337.1530107941.1530678243.1530684086.21&pageClickKey=-1&platform=3&applicationId=983467&_=1530684192499&callback=Zepto1530684165390",headers=headers)
+                "http://act-jshop.jd.com/couponSend.html?ruleId=12816306&key=d88304accdc44958b2eb761799fd21de&sid=df194dd9015d61b069c80548c75a8527&eid=63MC7EDDUH3243MORQ6DB7M4DE5MRVJBHY45TJTOLUBLHKPV7ZM5K7NODMX23BJDXO5D3PO4WJDNP3CLSH23KQ4LHY&fp=a5cfd575a431a5c829b88a9062947ac4&shshshfp=a5b45026da1ec74832d172380fe4983e&shshshfpa=aa869845-629a-d170-0163-904170f09f1d-1530679125&shshshfpb=0dc613037052c5423615861c74482464d9908091518dc06c55b3446a37&jda=122270672.15301079406641749654337.1530107941.1530678243.1530684086.21&pageClickKey=-1&platform=3&applicationId=983467&_=1530684192499&callback=Zepto1530684165390",headers=headers)
             logger.debug(resp.text)
 
         resp = requests.get(
-            "http://act-jshop.jd.com/couponSend.html?ruleId=12816307&key=9e2c507aa97c43f9a9dad267bbd4bb40&sid=df194dd9015d61b069c80548c75a8527&eid=63MC7EDDUH3243MORQ6DB7M4DE5MRVJBHY45TJTOLUBLHKPV7ZM5K7NODMX23BJDXO5D3PO4WJDNP3CLSH23KQ4LHY&fp=a5cfd575a431a5c829b88a9062947ac4&shshshfp=a5b45026da1ec74832d172380fe4983e&shshshfpa=aa869845-629a-d170-0163-904170f09f1d-1530679125&shshshfpb=0dc613037052c5423615861c74482464d9908091518dc06c55b3446a37&jda=122270672.15301079406641749654337.1530107941.1530678243.1530684086.21&pageClickKey=-1&platform=3&applicationId=983467&_=1530684192499&callback=Zepto1530684165390",headers=headers)
+            "http://act-jshop.jd.com/couponSend.html?ruleId=12816306&key=d88304accdc44958b2eb761799fd21de&sid=df194dd9015d61b069c80548c75a8527&eid=63MC7EDDUH3243MORQ6DB7M4DE5MRVJBHY45TJTOLUBLHKPV7ZM5K7NODMX23BJDXO5D3PO4WJDNP3CLSH23KQ4LHY&fp=a5cfd575a431a5c829b88a9062947ac4&shshshfp=a5b45026da1ec74832d172380fe4983e&shshshfpa=aa869845-629a-d170-0163-904170f09f1d-1530679125&shshshfpb=0dc613037052c5423615861c74482464d9908091518dc06c55b3446a37&jda=122270672.15301079406641749654337.1530107941.1530678243.1530684086.21&pageClickKey=-1&platform=3&applicationId=983467&_=1530684192499&callback=Zepto1530684165390",headers=headers)
         logger.debug(resp.text)
         resp = requests.get(
             "http://act-jshop.jd.com/couponSend.html?ruleId=12816308&key=9e2c507aa97c43f9a9dad267bbd4bb40&sid=df194dd9015d61b069c80548c75a8527&eid=63MC7EDDUH3243MORQ6DB7M4DE5MRVJBHY45TJTOLUBLHKPV7ZM5K7NODMX23BJDXO5D3PO4WJDNP3CLSH23KQ4LHY&fp=a5cfd575a431a5c829b88a9062947ac4&shshshfp=a5b45026da1ec74832d172380fe4983e&shshshfpa=aa869845-629a-d170-0163-904170f09f1d-1530679125&shshshfpb=0dc613037052c5423615861c74482464d9908091518dc06c55b3446a37&jda=122270672.15301079406641749654337.1530107941.1530678243.1530684086.21&pageClickKey=-1&platform=3&applicationId=983467&_=1530684192499&callback=Zepto1530684165390",headers=headers)
