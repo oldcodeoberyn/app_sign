@@ -31,15 +31,18 @@ def login(userName, password):
     while not_connect == False:
         try:
             driver.get(url)
-
-            # with open("cookie") as f:
-            #     cookie_str = f.readline()
-            #     cookies = cookie_str.split(";")
-            #     for c in cookies:
-            #         cookie = {}
-            #         cookie['name'] = c.split('=')[0].strip()
-            #         cookie['value'] = c.split('=')[1].strip()
-            #         driver.add_cookie(cookie)
+            time.sleep(3)
+            logger.debug(driver.get_cookies())
+            driver.delete_all_cookies()
+            with open("cookie") as f:
+                cookie_str = f.readline()
+                cookies = cookie_str.split(";")
+                for c in cookies:
+                    cookie = {}
+                    cookie['name'] = c.split('=')[0].strip()
+                    cookie['value'] = c.split('=')[1].strip()
+                    driver.add_cookie(cookie)
+            logger.debug(driver.get_cookies())
             time.sleep(2)
             driver.find_element_by_link_text("你好，请登录").click()
             time.sleep(3)
