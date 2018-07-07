@@ -22,6 +22,7 @@ def checkLogin(driver):
 
 def login(userName, password):
     driver = create_chrome()
+
     # TODO, 有时登陆会跳转到linkstar.com，导致异常退出
     url = "http://www.jd.com"
     authcode_img = 'out.png'
@@ -30,6 +31,15 @@ def login(userName, password):
     while not_connect == False:
         try:
             driver.get(url)
+
+            # with open("cookie") as f:
+            #     cookie_str = f.readline()
+            #     cookies = cookie_str.split(";")
+            #     for c in cookies:
+            #         cookie = {}
+            #         cookie['name'] = c.split('=')[0].strip()
+            #         cookie['value'] = c.split('=')[1].strip()
+            #         driver.add_cookie(cookie)
             time.sleep(2)
             driver.find_element_by_link_text("你好，请登录").click()
             time.sleep(3)
@@ -92,7 +102,7 @@ def login(userName, password):
             image.save(authcode_img)
 
             authcode = extract_text_by_baidu(authcode_img)
-            logger.debug("提取的验证码为:", authcode)
+            logger.debug("提取的验证码为:{}".format(authcode))
             if len(authcode) != 4:
                 logger.debug("验证码提取错误")
                 continue
