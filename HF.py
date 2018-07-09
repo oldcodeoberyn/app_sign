@@ -26,18 +26,22 @@ def login(userName, password):
         url = "https://home.m.jd.com/myJd/home.action"
         authcode_img = 'out.png'
 
-        while not checkLogin(driver):
-            try:
-                driver.get(url)
-                time.sleep(2)
-                logger.debug("账户登录...")
-                driver.find_element_by_id("username").send_keys(userName)
-                driver.find_element_by_id("password").send_keys(password)
-                driver.find_element_by_id("loginBtn").click()
-                logger.debug("提交密码...")
-                time.sleep(5)
-            except Exception:
-                logger.exception("无法访问JD")
+        try:
+            driver.get(url)
+            time.sleep(2)
+            logger.debug("账户登录...")
+            driver.find_element_by_id("username").send_keys(userName)
+            driver.find_element_by_id("password").send_keys(password)
+            driver.find_element_by_id("loginBtn").click()
+            logger.debug("提交密码...")
+            time.sleep(5)
+        except Exception:
+            logger.exception("无法访问JD")
+        if not checkLogin(driver):
+            logger.debug("需要验证码")
+            driver.close()
+            return
+
 
         driver.get("https://sale.jd.com/m/act/8Ak3ilHTvYR7.html")
         time.sleep(2)
@@ -78,20 +82,27 @@ def login(userName, password):
                    }
         logger.debug(headers)
 
-        while time.time() < buytime + 0.6:
+        while time.time() < buytime + 0.66:
             time.sleep(0.1)
-        while time.time() > buytime + 0.6 and time.time() < buytime + 2:
+        while time.time() > buytime + 0.66 and time.time() < buytime + 1.5:
             time.sleep(0.025)
             resp = requests.get(
-                "http://act-jshop.jd.com/couponSend.html?ruleId=12816306&key=d88304accdc44958b2eb761799fd21de&sid=df194dd9015d61b069c80548c75a8527&eid=63MC7EDDUH3243MORQ6DB7M4DE5MRVJBHY45TJTOLUBLHKPV7ZM5K7NODMX23BJDXO5D3PO4WJDNP3CLSH23KQ4LHY&fp=a5cfd575a431a5c829b88a9062947ac4&shshshfp=a5b45026da1ec74832d172380fe4983e&shshshfpa=aa869845-629a-d170-0163-904170f09f1d-1530679125&shshshfpb=0dc613037052c5423615861c74482464d9908091518dc06c55b3446a37&jda=122270672.15301079406641749654337.1530107941.1530678243.1530684086.21&pageClickKey=-1&platform=3&applicationId=983467&_=1530684192499&callback=Zepto1530684165390",headers=headers)
+                "http://act-jshop.jd.com/couponSend.html?ruleId=12963547&key=58dd58cd01684535ae7c26b4f98e2d1d&sid=df194dd9015d61b069c80548c75a8527&eid=63MC7EDDUH3243MORQ6DB7M4DE5MRVJBHY45TJTOLUBLHKPV7ZM5K7NODMX23BJDXO5D3PO4WJDNP3CLSH23KQ4LHY&fp=a5cfd575a431a5c829b88a9062947ac4&shshshfp=a5b45026da1ec74832d172380fe4983e&shshshfpa=aa869845-629a-d170-0163-904170f09f1d-1530679125&shshshfpb=0dc613037052c5423615861c74482464d9908091518dc06c55b3446a37&jda=122270672.15301079406641749654337.1530107941.1530678243.1530684086.21&pageClickKey=-1&platform=3&applicationId=983467&_=1530684192499&callback=Zepto1530684165390",headers=headers)
             logger.debug(resp.text)
 
         resp = requests.get(
-            "http://act-jshop.jd.com/couponSend.html?ruleId=12816306&key=d88304accdc44958b2eb761799fd21de&sid=df194dd9015d61b069c80548c75a8527&eid=63MC7EDDUH3243MORQ6DB7M4DE5MRVJBHY45TJTOLUBLHKPV7ZM5K7NODMX23BJDXO5D3PO4WJDNP3CLSH23KQ4LHY&fp=a5cfd575a431a5c829b88a9062947ac4&shshshfp=a5b45026da1ec74832d172380fe4983e&shshshfpa=aa869845-629a-d170-0163-904170f09f1d-1530679125&shshshfpb=0dc613037052c5423615861c74482464d9908091518dc06c55b3446a37&jda=122270672.15301079406641749654337.1530107941.1530678243.1530684086.21&pageClickKey=-1&platform=3&applicationId=983467&_=1530684192499&callback=Zepto1530684165390",headers=headers)
+            "http://act-jshop.jd.com/couponSend.html?ruleId=12963547&key=58dd58cd01684535ae7c26b4f98e2d1d&sid=df194dd9015d61b069c80548c75a8527&eid=63MC7EDDUH3243MORQ6DB7M4DE5MRVJBHY45TJTOLUBLHKPV7ZM5K7NODMX23BJDXO5D3PO4WJDNP3CLSH23KQ4LHY&fp=a5cfd575a431a5c829b88a9062947ac4&shshshfp=a5b45026da1ec74832d172380fe4983e&shshshfpa=aa869845-629a-d170-0163-904170f09f1d-1530679125&shshshfpb=0dc613037052c5423615861c74482464d9908091518dc06c55b3446a37&jda=122270672.15301079406641749654337.1530107941.1530678243.1530684086.21&pageClickKey=-1&platform=3&applicationId=983467&_=1530684192499&callback=Zepto1530684165390",headers=headers)
         logger.debug(resp.text)
         resp = requests.get(
-            "http://act-jshop.jd.com/couponSend.html?ruleId=12816308&key=9e2c507aa97c43f9a9dad267bbd4bb40&sid=df194dd9015d61b069c80548c75a8527&eid=63MC7EDDUH3243MORQ6DB7M4DE5MRVJBHY45TJTOLUBLHKPV7ZM5K7NODMX23BJDXO5D3PO4WJDNP3CLSH23KQ4LHY&fp=a5cfd575a431a5c829b88a9062947ac4&shshshfp=a5b45026da1ec74832d172380fe4983e&shshshfpa=aa869845-629a-d170-0163-904170f09f1d-1530679125&shshshfpb=0dc613037052c5423615861c74482464d9908091518dc06c55b3446a37&jda=122270672.15301079406641749654337.1530107941.1530678243.1530684086.21&pageClickKey=-1&platform=3&applicationId=983467&_=1530684192499&callback=Zepto1530684165390",headers=headers)
+            "http://act-jshop.jd.com/couponSend.html?ruleId=12963547&key=58dd58cd01684535ae7c26b4f98e2d1d&sid=df194dd9015d61b069c80548c75a8527&eid=63MC7EDDUH3243MORQ6DB7M4DE5MRVJBHY45TJTOLUBLHKPV7ZM5K7NODMX23BJDXO5D3PO4WJDNP3CLSH23KQ4LHY&fp=a5cfd575a431a5c829b88a9062947ac4&shshshfp=a5b45026da1ec74832d172380fe4983e&shshshfpa=aa869845-629a-d170-0163-904170f09f1d-1530679125&shshshfpb=0dc613037052c5423615861c74482464d9908091518dc06c55b3446a37&jda=122270672.15301079406641749654337.1530107941.1530678243.1530684086.21&pageClickKey=-1&platform=3&applicationId=983467&_=1530684192499&callback=Zepto1530684165390",headers=headers)
         logger.debug(resp.text)
+        resp = requests.get(
+            "http://act-jshop.jd.com/couponSend.html?ruleId=12963551&key=e61351f39297487e8910df5e314ed7e7&sid=df194dd9015d61b069c80548c75a8527&eid=63MC7EDDUH3243MORQ6DB7M4DE5MRVJBHY45TJTOLUBLHKPV7ZM5K7NODMX23BJDXO5D3PO4WJDNP3CLSH23KQ4LHY&fp=a5cfd575a431a5c829b88a9062947ac4&shshshfp=a5b45026da1ec74832d172380fe4983e&shshshfpa=aa869845-629a-d170-0163-904170f09f1d-1530679125&shshshfpb=0dc613037052c5423615861c74482464d9908091518dc06c55b3446a37&jda=122270672.15301079406641749654337.1530107941.1530678243.1530684086.21&pageClickKey=-1&platform=3&applicationId=983467&_=1530684192499&callback=Zepto1530684165390",headers=headers)
+        logger.debug(resp.text)
+        resp = requests.get(
+            "http://act-jshop.jd.com/couponSend.html?ruleId=12963544&key=077a18bfc2864e8fa1a90faf19ed6c15&sid=df194dd9015d61b069c80548c75a8527&eid=63MC7EDDUH3243MORQ6DB7M4DE5MRVJBHY45TJTOLUBLHKPV7ZM5K7NODMX23BJDXO5D3PO4WJDNP3CLSH23KQ4LHY&fp=a5cfd575a431a5c829b88a9062947ac4&shshshfp=a5b45026da1ec74832d172380fe4983e&shshshfpa=aa869845-629a-d170-0163-904170f09f1d-1530679125&shshshfpb=0dc613037052c5423615861c74482464d9908091518dc06c55b3446a37&jda=122270672.15301079406641749654337.1530107941.1530678243.1530684086.21&pageClickKey=-1&platform=3&applicationId=983467&_=1530684192499&callback=Zepto1530684165390",headers=headers)
+        logger.debug(resp.text)
+
         driver.get("https://sale.jd.com/m/act/8Ak3ilHTvYR7.html")
         time.sleep(0.3)
         try:
