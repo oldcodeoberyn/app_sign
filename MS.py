@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 import time
+
+import requests
+
 from common_utils import *
 import sys
 import datetime
 
 def checkLogin(driver):
     try:
-        driver.find_element_by_class_name("nickname")
+        driver.find_element_by_class_name("my_header_v4_wrap")
         logger.debug("登陆成功")
         return True
     except Exception:
@@ -22,8 +25,7 @@ def login(userName, password):
         url = "https://home.m.jd.com/myJd/home.action"
         authcode_img = 'out.png'
 
-        not_connect = False
-        while not_connect == False:
+        while not checkLogin(driver):
             try:
                 driver.get(url)
                 time.sleep(2)
@@ -36,6 +38,13 @@ def login(userName, password):
                 not_connect = True
             except Exception:
                 logger.exception("无法访问JD")
+
+        # cookie = "; ".join([item["name"] + "=" + item["value"] for item in driver.get_cookies()])
+        # headers = {"referer": "https://p.m.jd.com/cart/cart.action",
+        #            "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+        #            "cookie":cookie
+        #            }
+        # requests.get("https://p.m.jd.com/norder/order.action?enterOrder=true&sid=52cd54d1680bc9ce83d8d31b3a5ed2fe&ran=0.6104466918550879",headers=headers)
         driver.get("https://p.m.jd.com/cart/cart.action")
         logger.debug("访问购物车")
         time.sleep(3)
@@ -48,14 +57,14 @@ def login(userName, password):
         time.sleep(1)
 
         date = datetime.datetime.now().strftime("%Y-%m-%d")
-        buy_time_str = date + ' 20:00:00'
+        buy_time_str = date + ' 09:59:58'
 
         buytime = time.mktime(time.strptime(buy_time_str, "%Y-%m-%d %H:%M:%S"))
         logger.debug(buytime)
         while (time.time() < buytime):
             time.sleep(0.01)
         find_element_by_class_name(driver, "buyJs")
-        time.sleep(0.25)
+        time.sleep(0.35)
         if find_element_by_id(driver, "pcprompt-viewpc"):
             time.sleep(0.1)
         find_element_by_link_text(driver, "在线支付")
