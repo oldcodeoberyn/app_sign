@@ -8,7 +8,7 @@ from common_utils import *
 
 def checkLogin(driver):
     try:
-        if (len(driver.find_elements_by_class_name("qyrv2")) == 2):
+        if (len(driver.find_elements_by_class_name("vt-user-nickname")) > 0):
             logger.debug("登陆成功")
             return True
         else:
@@ -22,7 +22,7 @@ def checkLogin(driver):
 def login(user, pwd):
     try:
         url = "http://www.iqiyi.com/iframe/loginreg"
-        driver = create_chrome(disableImage=True, mobile=False)
+        driver = create_chrome(disableImage=False, mobile=False)
         not_connect = False
         while not_connect == False:
             try:
@@ -38,8 +38,19 @@ def login(user, pwd):
                 logger.debug("账户登录...")
                 driver.find_element_by_class_name("txt-account").send_keys(user)
                 driver.find_element_by_class_name("txt-password").send_keys(pwd)
-                driver.find_element_by_class_name("btn-login").click()
-                logger.debug("提交密码...")
+
+                driver.delete_all_cookies()
+                with open("cookie") as f:
+                    cookie_str = f.readline()
+                    cookies = cookie_str.split(";")
+                    for c in cookies:
+                        cookie = {}
+                        cookie['name'] = c.split('=')[0].strip()
+                        cookie['value'] = c.split('=')[1].strip()
+                        driver.add_cookie(cookie)
+                driver.refresh()
+                # driver.find_element_by_class_name("btn-login").click()
+                # logger.debug("提交密码...")
                 time.sleep(5)
                 not_connect = True
             except Exception as e:
