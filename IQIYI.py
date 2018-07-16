@@ -7,7 +7,7 @@ from common_utils import *
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
 
 def checkLogin(driver):
@@ -31,6 +31,7 @@ def login():
             driver.get(url)
             time.sleep(3)
             driver.delete_all_cookies()
+            logger.debug("open coockie {}".format(os.path.join(BASE_DIR, "cookie")))
             with open(os.path.join(BASE_DIR, "cookie")) as f:
                 cookie_str = f.readline()
                 cookies = cookie_str.split(";")
