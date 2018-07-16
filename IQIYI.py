@@ -8,7 +8,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
-
+COOKIE_PATH = os.path.join(BASE_DIR, "cookie")
 
 def checkLogin(driver):
     try:
@@ -31,8 +31,8 @@ def login():
             driver.get(url)
             time.sleep(3)
             driver.delete_all_cookies()
-            logger.debug("open coockie {}".format(os.path.join(BASE_DIR, "cookie")))
-            with open(os.path.join(BASE_DIR, "cookie")) as f:
+            logger.debug("open cookie {}".format(COOKIE_PATH))
+            with open(COOKIE_PATH) as f:
                 cookie_str = f.readline()
                 cookies = cookie_str.split(";")
                 for c in cookies:
@@ -65,7 +65,7 @@ def login():
             driver.get("http://vip.iqiyi.com/pcwlottery.html")
             time.sleep(2)
             driver.delete_all_cookies()
-            with open("cookie") as f:
+            with open(COOKIE_PATH) as f:
                 cookie_str = f.readline()
                 cookies = cookie_str.split(";")
                 for c in cookies:
@@ -92,7 +92,7 @@ def login():
         logger.debug("任务")
         driver.get('http://www.iqiyi.com/u/point')
         driver.delete_all_cookies()
-        with open("cookie") as f:
+        with open(COOKIE_PATH) as f:
             cookie_str = f.readline()
             cookies = cookie_str.split(";")
             for c in cookies:
