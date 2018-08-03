@@ -88,7 +88,7 @@ def extract_text_by_baidu(imagePath):
 
 def extract_text_by_google(imagePath):
     with Image.open(imagePath) as img:
-        return get_text_from_image(img, tessedit_char_whitelist=digits)
+        return get_text_from_image(img)
 
 
 def find_element_by_id(driver, id):
@@ -144,3 +144,10 @@ def find_elements_by_css_selector(driver, css):
     except Exception:
         logger.exception(css + " not exits")
         return False
+
+def config_header(driver, referer):
+    cookie = "; ".join([item["name"] + "=" + item["value"] for item in driver.get_cookies()])
+    return {"referer": referer,
+               "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+               "cookie":cookie
+               }
