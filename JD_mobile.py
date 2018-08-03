@@ -48,6 +48,9 @@ def login(userName, password):
             except Exception:
                 logger.debug("无法访问JD")
 
+        # 京豆乐园
+        driver.get("https://union-click.jd.com/jdc?d=oDyb0D")
+        time.sleep(2)
         driver.get(
             'https://ms.jr.jd.com/jrmserver/base/user/getNewTokenJumpUrl?accessKey=14a143c5-3ff4-40f0-b65c-dc39ab5483be&pin=54K554Gr5LiJ5ZGo&deviceId=008796756085172&clientType=android&a2=AAFbXoZ3AECIb95oHj7QugQF2vU-c1kWNVYdjPAvKdXpxNlqVk3BxURFVUrt2tq0_7-naO9l5LoSS1oPbuaz0_uOo_oDlVUx&sign=05e5b556b2600e15ed4dbc95cfefe6c0&targetUrl=aHR0cHM6Ly9tLmpyLmpkLmNvbS92aXAvc2lnbi9odG1sL2luZGV4Lmh0bWw%3D')
         time.sleep(2)
@@ -74,10 +77,10 @@ def login(userName, password):
         logger.info("移动端翻牌成功")
         time.sleep(2)
 
-        driver.get("https://ljd.m.jd.com/countersign/index.action")
-        time.sleep(2)
-        driver.find_element_by_class_name("gift-dialog-btn").click()
-        time.sleep(2)
+        # driver.get("https://ljd.m.jd.com/countersign/index.action")
+        # time.sleep(2)
+        # driver.find_element_by_class_name("gift-dialog-btn").click()
+        # time.sleep(2)
 
         driver.get("https://vip.m.jd.com/")
         time.sleep(2)
